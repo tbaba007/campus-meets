@@ -2,7 +2,10 @@ const { default: App } = require('next/app')
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    experimental:App
+    experimental:{
+        appDir:true
+    }
+    
 }
 
 module.exports = nextConfig
