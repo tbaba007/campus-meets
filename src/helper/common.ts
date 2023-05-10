@@ -24,15 +24,22 @@ interface IAppColors {
   
   
   export function saveMessage(key:string,value:string){
+    if(typeof window !='undefined'){
       sessionStorage.setItem(key,value);
+    }
   }
   
   export function getMessage(key:string){
+    if(typeof window !='undefined'){
       return sessionStorage.getItem(key);
+
+    }
   }
   
   export function removeMessageByKey(key:string){
+    if(typeof window !='undefined'){
       sessionStorage.removeItem(key)
+    }
   }
   
   export function capitalizeFirstLetter(word:string){

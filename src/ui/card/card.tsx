@@ -1,11 +1,11 @@
 import React from 'react';
-import cardStyles from './card.module.css'
+import { Container } from './styles';
 import { ICardProps } from './types';
 
 
 const Card=({width,height,children}:ICardProps)=>{
-    return <div className={cardStyles.Container} style={{height:height,width:width}}>
+    return <Container height={height} width={width}>
             {children}
-           </div>
+           </Container>
 }
 export default Card;

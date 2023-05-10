@@ -1,7 +1,6 @@
-'use client'
 import React from "react";
-import { ButtonProps } from "./types";
-import buttonStyles from './button.module.css'
+import { Button } from "./styles";
+import { IButtonProps } from "./types";
 
 const ButtonUi = ({
     children,
@@ -10,17 +9,17 @@ const ButtonUi = ({
     onClick,
     width,
     isDisabled,
-}: ButtonProps) => {
+}: IButtonProps) => {
     return (
-        <button
-        className={buttonStyles.buttonContainer}
-        style={{backgroundColor:backgroundColor,height:height,
-        width:width}}
-            
+        <Button
+            backgroundColor={backgroundColor}
+            height={height}
+            width={width}
+            disabled={isDisabled}
             onClick={onClick}
         >
             {children}
-        </button>
+        </Button>
     );
 };
 

@@ -334,11 +334,7 @@ app.get('/NotifyUsers/:id', async (req, res) => {
       return response
     });
 
-  //console.log("marketdetails", marketDetails)
 
-  //const acceptedIds =   
-
-  //console.log("accepted", marketDetails);
   const { Acceptedids } = marketDetails.rows[0];
   const { Location } = marketDetails.rows[0];
   const { StartDate } = marketDetails.rows[0];
@@ -354,12 +350,10 @@ app.get('/NotifyUsers/:id', async (req, res) => {
       return response
     })
 
-  //console.log("data", data.rows[0]);
 
   let counter = 0;
   const totalEmail = data.rows.length;
 
-  //const{FirstName, LastName} = data.rows;
 
   data && data.rows.map((item) => {
 

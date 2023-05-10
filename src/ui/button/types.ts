@@ -1,4 +1,4 @@
-export interface ButtonProps{
+export interface IButtonProps{
     onClick?:(params:any)=>void | any;
     text?:string;
     children?:JSX.Element;
