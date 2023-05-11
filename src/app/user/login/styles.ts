@@ -15,6 +15,7 @@ export const LoginInputEmail = styled.input.attrs({ type: "email" })`
   border-radius: 8px;
   border: 1px #f0f1f7;
   outline: none;
+  color: black;
   ::placeholder {
     padding-left: 5px;
   }
@@ -25,6 +26,7 @@ export const LoginInputPassword = styled.input.attrs({ type: "password" })`
   border-radius: 8px;
   border: 1px #f0f1f7;
   outline: none;
+  color: black;
   ::placeholder {
     padding-left: 5px;
   }
@@ -36,6 +38,7 @@ export const LoginContainer = styled.div`
   align-items: center;
   gap: 20px;
   margin-top: 40px;
+  
 `;
 
 export const LoginInputHeader = styled.label`

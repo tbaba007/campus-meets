@@ -21,8 +21,10 @@ const Page = () => {
   const loginRef=useRef<HTMLInputElement>(null)
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  if(typeof document !=='undefined')
-  document.title="Login"
+  if(typeof document !=='undefined'){
+    document.title="Login"
+
+  }
   const navigate=useRouter();
 
   useEffect(()=>{
@@ -32,8 +34,8 @@ const Page = () => {
   },[])
 
   const onLogin = async() => {
-    if (!username.trim()) return toast("Please enter a valid email address");
-    if (!password.trim()) return toast("Please enter a valid password");
+    if (!username.trim()) return toast.error("Please enter a valid email address");
+    if (!password.trim()) return toast.error("Please enter a valid password");
     //call Api
     try{
       const isSuccessful=await UserLogin(username,password);

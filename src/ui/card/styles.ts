@@ -8,4 +8,5 @@ export const Container = styled.div<ICardProps>`
   height: ${(props) => props.height};
   border-radius: 8px;
   text-align: center;
+  color: black;
 `;

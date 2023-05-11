@@ -24,7 +24,9 @@ export const HeaderContainer = styled.div`
     position: absolute;
     justify-content: flex-end;
     width: 100%;
+    height: 10px;
     margin-top: 5px;
     margin-bottom: 30px;
+    color: black;
    
 `;

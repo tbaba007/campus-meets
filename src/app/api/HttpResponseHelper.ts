@@ -5,21 +5,21 @@ interface IResponse {
   ok: boolean;
 }
 
-export const httpJsonResponseResolver = (response: IResponse) => {
+export const httpJsonResponseResolver = async(response: IResponse) => {
   if (!response.ok) {
     return Promise.reject(response.statusText);
   }
-  return Promise.resolve(response.json()).then((res) => {
-    return res;
-  });
+
+  const data=await response.json();
+  return data;
+
 };
 
-export const httpTextResponseResolver = (response: IResponse) => {
-  debugger;
+export const httpTextResponseResolver = async(response: IResponse) => {
   if (!response.ok) {
     return Promise.reject(response.statusText);
   }
-  return Promise.resolve(response.text()).then((res) => {
-    return res;
-  });
+ 
+  const data=await response.text();
+  return data;
 };
