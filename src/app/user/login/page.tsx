@@ -15,9 +15,12 @@ import {
   RegisterLink,
 } from "./styles";
 import { useRouter } from "next/navigation";
-import { UserLogin } from "../../api/services/user";
+import useFetch from "@/app/hooks/useFetch";
+import { UserProps } from "../types";
 
 const Page = () => {
+  const {isLoading,data,error,statusCode ,postData}=useFetch({urlPath:'users/auth'})
+
   const loginRef=useRef<HTMLInputElement>(null)
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -33,17 +36,22 @@ const Page = () => {
     }
   },[])
 
+
   const onLogin = async() => {
     if (!username.trim()) return toast.error("Please enter a valid email address");
     if (!password.trim()) return toast.error("Please enter a valid password");
     //call Api
     try{
-      const isSuccessful=await UserLogin(username,password);
-      debugger;
-      if(isSuccessful && isSuccessful.length>0){
-
-        saveMessage("user",JSON.stringify(isSuccessful[0]))
-        if(isSuccessful[0].role==="user"){
+      const payload:Partial<UserProps>={
+        Email:username,
+        Password:password
+      }
+       postData(payload,{method:'POST'});
+       debugger;
+      if(!isLoading && !error && statusCode>-1){
+        const response:UserProps[]=data!!;
+        saveMessage("user",JSON.stringify(response[0]))
+        if(response[0].role==="user"){
           return navigate.push('/dashboard')
         }
         return navigate.push('/overview') 

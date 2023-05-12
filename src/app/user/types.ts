@@ -7,5 +7,6 @@ export interface UserProps{
     StudentId:string;
     Password:string;
     isactive?:boolean
-    RoleId?:number
+    RoleId?:number;
+    role:string;
 }

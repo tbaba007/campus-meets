@@ -56,7 +56,6 @@ const Register = () => {
       Mobile:Mobile
     }
     const registerUser=await RegisterUser(data);
-    debugger;
       if(registerUser){
         toast.success("Registration successful");
 

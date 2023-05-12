@@ -6,30 +6,34 @@ import Header from "../Header";
 import SideBar from "../sidebar";
 import { DashBoardContainer, DashBoardScore, DashBoardScoreHeader } from "./styles";
 import Card from "@/ui/card";
-import { IEventProps } from "../marketplace/types";
-import { GetGamesCount, GetReceivedRequestsById, GetSentRequestsById } from "../api/services/events";
+import useFetch from "../hooks/useFetch";
 
+const userDetails = getMessage("user")!!;
+const RequesterId =userDetails? JSON.parse(userDetails)?.UserId:0;
+const StudentId=userDetails?JSON.parse(userDetails)?.StudentId:0;
 
 export default function Page(){
-    const userDetails = getMessage("user")!!;
-    const RequesterId = JSON.parse(userDetails).UserId;
-    const StudentId=JSON.parse(userDetails).StudentId;
+  
+  const dashBoardData=Promise.all([useFetch({urlPath:`marketplace/GetSentRequestById/${RequesterId}`}),useFetch({urlPath:`marketplace/GetReceivedRequestById/${StudentId}`}),useFetch({urlPath:`marketplace/GetReceivedRequestById/${StudentId}
+  `})]);
+      if(typeof window !=='undefined')
       document.title="DashBoard"
       const [requestSentCount,setRequestSentCount]=useState(0);
       const [requestReceivedCount,setRequestReceivedCount]=useState(0);
       const [gamesPlayedCount,setGamesPlayedCount]=useState(0);
+
       useEffect(()=>{
         const FetchData = async () => {
-          const data= await Promise.all([GetSentRequestsById(RequesterId),GetReceivedRequestsById(StudentId),GetGamesCount(StudentId)]);
-            const markePlaceRequests: IEventProps[] = data[0];
-            const markePlaceReceivedRequests: IEventProps[] = data[1];
-            const gamesReceivedCount: IEventProps[] = data[2];
-            setRequestSentCount(markePlaceRequests.length);
-            setRequestReceivedCount(markePlaceReceivedRequests.length)
-            setGamesPlayedCount(gamesReceivedCount.length)
+          const userdata=await dashBoardData;
+          await userdata[0].fetchData();
+          setRequestSentCount( userdata[0].data?.length!!)
+          await userdata[1].fetchData();
+          setRequestReceivedCount( userdata[1].data?.length!!)
+          await userdata[2].fetchData();
+          setGamesPlayedCount( userdata[2].data?.length!!)
         };
         FetchData();
-      },[RequesterId,StudentId])
+      },[dashBoardData])
     return (
       <LayoutContainer>
         <Header />
