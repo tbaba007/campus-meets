@@ -1,6 +1,6 @@
-
+'use client'
 import { httpJsonResponseResolver, httpTextResponseResolver } from "./HttpResponseHelper";
-const baseUrl = 'http://localhost:4000';
+const baseUrl = process.env.APP_API;
 interface IHttpProps {
   path: string;
   payload?: any;
