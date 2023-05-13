@@ -1,4 +1,4 @@
-### Campus Meets
+## Campus Meets
 
 This is an application that just enables new students meet up their fellow students through sports. Here the students schdule sports with n number of players.
 
