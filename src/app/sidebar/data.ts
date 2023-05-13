@@ -4,20 +4,20 @@ const iconPath = "/assets/images/";
 export const AdminMenu: ISideBarProps[] = [
   {
     id: 0,
-    path: "/users",
+    path: "/admin/user",
     title: "Users",
     icon: `${iconPath}Contacts.svg`,
   },
 
   {
     id: 2,
-    path: "/sports",
+    path: "/admin/sports",
     title: "Sports",
     icon: `${iconPath}Settings.svg`,
   },
   {
     id: 3,
-    path: "/allevents",
+    path: "/requests/allrequests",
     title: "All Events",
     icon: `${iconPath}SubScription.svg`,
   },

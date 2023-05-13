@@ -22,7 +22,7 @@ app.get('/GetAll',(req,res)=>{
 
 app.post('/AddNew',(req,res)=>{
     const {Name}=req.body;
-    AppPool.query('insert into meets."Sports"("Name","IsActive") values ($1,$2)',[Name,true],(err,result)=>{
+    AppPool.query('insert into meets."Sports"("Name","isactive") values ($1,$2)',[Name,true],(err,result)=>{
         if(err){
             res.send(err)
         }
@@ -55,6 +55,18 @@ app.put('/Deactivate/:id',(req,res)=>{
         else{
             res.sendStatus(200)
         }
+    })
+})
+
+app.get('/GetSportById/:id',(req,res)=>{
+    const {id}=req.params;
+    AppPool.query('select * from meets."Sports" where isActive=true and "SportId"=$1',[id],(err,result)=>{
+        if(err){
+            res.send(err.message)
+        }
+        else{
+            res.send(result.rows)
+        } 
     })
 })
 

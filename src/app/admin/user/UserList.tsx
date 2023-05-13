@@ -1,16 +1,18 @@
+'use client'
 import React,{useEffect, useState} from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { toast, ToastContainer } from "react-toastify";
-import { DisableUser, GetAll } from "../../../api/services/user";
+import { DisableUser, GetAll } from "../../api/services/user";
 import { AppColors } from "../../../helper/common";
 import Header from "../../Header";
 import { LayoutContainer } from "@/ui/layout/styles";
 import SideBar from "../../sidebar/sidebar";
 import ButtonUi from "@/ui/button/button";
 import { IUserProps } from "../../user/register/types";
-import { UserListTableContainer } from "./styles";
+import { UserListTableBody, UserListTableContainer } from "./styles";
 
 const UserList = () => {
+  if(typeof window !='undefined')
   document.title="UserList"
   const [userList,setUserList]=useState<IUserProps[]>([]);
   const [update,setUpdate]=useState(0)
@@ -42,10 +44,9 @@ const UserList = () => {
     }
   };
 
-  const onEdit = ({ UserId,FirstName,LastName,Mobile }: IUserProps) => {
-    navigate(`/edituser/${UserId}`,{state:{
-        FirstName,LastName,Mobile
-    }});
+  const onEdit = (user: IUserProps) => {
+    debugger;
+    navigate.push(`/admin/user/edituser/${user.UserId}`);
   };
   return (
     <LayoutContainer>
@@ -62,7 +63,7 @@ const UserList = () => {
             <th>Role</th>
           </tr>
         </thead>
-        <tbody>
+        <UserListTableBody>
           {userList && userList.length>0 && userList.map((item, index) => {
             return (
               <tr key={item.UserId}>
@@ -92,7 +93,7 @@ const UserList = () => {
               </tr>
             );
           })}
-        </tbody>
+        </UserListTableBody>
 
       </UserListTableContainer>
    <ToastContainer/>

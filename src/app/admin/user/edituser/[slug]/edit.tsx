@@ -1,35 +1,40 @@
+'use client'
 import React, { useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import {  useParams,useRouter } from "next/navigation";
 import { toast, ToastContainer } from "react-toastify";
 import { UpdateUser } from "../../../../api/services/user";
-import { AppColors } from "../../../../helper/common";
-import { LayoutContainer } from "../../../layout";
-import SideBar from "../../../sidebar";
-import ButtonUi from "../../../ui/button/button";
-import Card from "../../../ui/card";
+import { AppColors } from "../../../../../helper/common";
+import { LayoutContainer } from "@/ui/layout/styles";
+import SideBar from "../../../../sidebar";
+import ButtonUi from "@/ui/button/button";
+import Card from "@/ui/card";
 import {
   RegisterInputFieldHeader,
   RegisterInputField,
-} from "../../../user/register/styles";
-import { IUserProps } from "../../../user/register/types";
+} from "../../../../user/register/styles";
+import { IUserProps } from "../../../../user/register/types";
 import {
   EditUserComponent,
   EditUserContainer,
   EditUserFooterContainer,
-} from "./styles";
+} from "../styles";
 
-const EditUser = () => {
-  const navigate = useNavigate();
+const EditUser = (props:IUserProps) => {
+  if(typeof window !='undefined')
+  document.title="Edit User"
+  const navigate = useRouter();
   const { id } = useParams();
-  const { state } = useLocation();
   const [firstName, setFirstName] = useState<string | undefined>(
-    state?.FirstName
+    //@ts-ignore: 
+    props[0]?.FirstName
   );
-  const [lastName, setLastName] = useState<string | undefined>(state?.LastName);
-  const [mobile, setMobile] = useState<string | undefined>(state?.Mobile);
+   //@ts-ignore: 
+  const [lastName, setLastName] = useState<string | undefined>(props[0]?.LastName);
+   //@ts-ignore: 
+  const [mobile, setMobile] = useState<string | undefined>(props[0]?.Mobile);
 
   const onCancel = () => {
-    navigate("/users");
+    navigate.push("/admin/user");
   };
 
   const onSave = async () => {
@@ -40,7 +45,8 @@ const EditUser = () => {
       FirstName: firstName,
       LastName: lastName,
       Mobile: mobile,
-      UserId: Number(id),
+       //@ts-ignore: 
+      UserId: props[0]?.UserId,
       Email: "",
       Password: "",
       StudentId: ""
@@ -50,7 +56,7 @@ const EditUser = () => {
       if(updateData){
         toast.success('User Updated Successfully');
         setTimeout(()=>{
-            navigate('/users');
+            navigate.push('/admin/user');
         },5000);
       }
       else{

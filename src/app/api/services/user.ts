@@ -25,3 +25,7 @@ export const DisableUser=(id:number)=>{
 export const RegisterUser=(data:IUserProps)=>{
  return POST({path:`users/AddUser`,payload:data})
 }
+
+export const GetUserById=(id:number)=>{
+  return GET({path:`users/GetUserById/${id}`})
+}

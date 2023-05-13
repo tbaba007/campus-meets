@@ -11,17 +11,16 @@ height: 100vh;
 `
 
 export const SportListTable=styled.table<ISportListProps>`
-
+margin-left: 100px;
 width: 100%;
-padding-top: 10px;
-border-collapse: collapse;
-border-spacing: 10px 20px;
 margin-top: 70px;
 overflow: scroll;
 
 td{
-    padding: 20px 10px;
+    padding: 20px 270px;
 }
+
+
 `
 
 export const BtnAddSports=styled.div`

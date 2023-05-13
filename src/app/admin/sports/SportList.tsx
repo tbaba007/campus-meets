@@ -1,16 +1,18 @@
+'use client'
 import React,{useEffect,useState} from "react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import { toast, ToastContainer } from "react-toastify";
-import { Deactivate, GetAllSports } from "../../../api/services/sports";
+import { Deactivate, GetAllSports } from "../../api/services/sports";
 import { AppColors } from "../../../helper/common";
 import Header from "../../Header";
-import { LayoutContainer } from "../../layout";
+import { LayoutContainer } from "@/ui/layout/styles";
 import SideBar from "../../sidebar";
-import ButtonUi from "../../ui/button";
+import ButtonUi from "@/ui/button";
 import { BtnAddSports, SportListContainer, SportListTable } from "./styles";
 import { ISportsProps } from "./types";
 
 const SportsList = () => {
+  if(typeof window!=='undefined')
   document.title = "Sport List";
   const [sportsArr,setSportsArr]=useState<ISportsProps[]>([]);
   const [update,setUpdate]=useState(0)
@@ -28,11 +30,10 @@ const SportsList = () => {
 
 
 
-  const navigate=useNavigate();
+  const navigate=useRouter();
   const onEdit=({Name,SportId}:ISportsProps)=>{
-    navigate(`/editSport/${SportId}`,{state:{
-         Name
-    }})
+    debugger;
+    navigate.push(`/admin/sports/edit/${SportId}`)
   }
 
   const onDelete= async ({SportId,Name}:ISportsProps)=>{
@@ -49,7 +50,7 @@ const SportsList = () => {
   }
 
   const onAdd=()=>{
-    navigate('/createsport');
+    navigate.push('/admin/sports/createsport');
   }
   
   return (

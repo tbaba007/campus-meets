@@ -21,6 +21,7 @@ export default function Page() {
   const loginRef=useRef<HTMLInputElement>(null)
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  if(typeof window !='undefined')
   document.title="Login"
   const navigate=useRouter();
 
@@ -31,8 +32,8 @@ export default function Page() {
   },[])
 
   const onLogin = async() => {
-    if (!username.trim()) return toast("Please enter a valid email address");
-    if (!password.trim()) return toast("Please enter a valid password");
+    if (!username.trim()) return toast.warn("Please enter a valid email address");
+    if (!password.trim()) return toast.warn("Please enter a valid password");
     //call Api
     try{
       const isSuccessful=await UserLogin(username,password);
@@ -41,7 +42,7 @@ export default function Page() {
         if(isSuccessful[0].role==="user"){
           return navigate.push('/dashboard')
         }
-        return navigate.push('/admin/overview') 
+        return navigate.push('/admin/Overview') 
       }
       toast.error("Invalid Username Or Password")
     }

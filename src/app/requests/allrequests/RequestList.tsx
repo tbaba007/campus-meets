@@ -1,15 +1,17 @@
+'use client'
 import React, { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
-import { DeleteEventById, GetAvailableEvents } from "../../../api/services/events";
+import { DeleteEventById, GetAvailableEvents } from "../../api/services/events";
 import { AppColors } from "../../../helper/common";
 import Header from "../../Header";
-import { LayoutContainer } from "../../layout";
+import { LayoutContainer } from "@/ui/layout/styles";
 import { IAvailableEventProps } from "../../marketplace/availableevent/types";
 import Sidebar from "../../sidebar";
-import ButtonUi from "../../ui/button";
+import ButtonUi from "@/ui/button";
 import { NoEventFound, SentRequestListContainer } from "../sentRequests/styles";
 
 const Requestlist = () => {
+  if(typeof window!='undefined')
   document.title="All Events"
   const [availableEventList, setAvailableEventList] = useState<
     IAvailableEventProps[]

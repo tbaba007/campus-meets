@@ -98,4 +98,17 @@ app.put("/Disable/:id", (req, res) => {
 })
 
 
+app.get("/GetUserById/:id",(req,res)=>{
+  const {id}=req.params;
+  AppPool.query('select * from meets."User" where "UserId"=$1',[id],(err,results)=>{
+    if(!err){
+      res.send(results.rows)
+    }
+    else{
+      res.sendStatus(500)
+    }
+  })
+})
+
+
 module.exports = app;

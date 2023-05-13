@@ -16,3 +16,9 @@ export const Deactivate=(sportId:number)=>{
 export const Update=(sportId:number,name:string)=>{
     return PUT({path:`sports/Update/${sportId}`,payload:{Name:name}})
 }
+
+export const GetSportById=(sportId:number)=>{
+    return GET({
+        path:`sports/GetSportById/${sportId}`
+    })
+}

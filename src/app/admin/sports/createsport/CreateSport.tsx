@@ -1,6 +1,6 @@
-'use-client'
+'use client'
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { toast, ToastContainer } from 'react-toastify';
 import { AddSport } from '../../../api/services/sports';
 import { AppColors, capitalizeFirstLetter } from '../../../../helper/common';
@@ -21,7 +21,6 @@ const CreateSport=()=>{
         //call api
 
         const sportName=capitalizeFirstLetter(name)!!
-        debugger;
         const isSave=await AddSport(sportName);
         const {constraint}=isSave;
         if(constraint){
@@ -31,7 +30,7 @@ const CreateSport=()=>{
         setName('')
     }
     const onCancel=()=>{
-        navigate.push('/sports');
+        navigate.push('/admin/sports');
     }
     return (
         <LayoutContainer>

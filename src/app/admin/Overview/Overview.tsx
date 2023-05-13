@@ -1,7 +1,7 @@
 'use client'
 import React,{useEffect,useState} from "react";
-import { GetAllEvents } from "../api/services/events";
-import { GetAll } from "../../../api/services/user";
+import { GetAllEvents } from "../../api/services/events";
+import { GetAll } from "../../api/services/user";
 import Header from "../../Header";
 import { IEventProps } from "../../marketplace/types";
 import SideBar from "../../sidebar/sidebar";
