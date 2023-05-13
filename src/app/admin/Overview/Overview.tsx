@@ -11,6 +11,7 @@ import { TopContainer } from "./styles";
 import { LayoutContainer } from "@/ui/layout/styles";
 
 const OverView = () => {
+  if(typeof window !='undefined')
   document.title = "Overview";
   const [userCount,setUserCount]=useState(0);
   const [eventCount,setEventCount]=useState(0);

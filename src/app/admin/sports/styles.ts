@@ -17,9 +17,8 @@ margin-top: 70px;
 overflow: scroll;
 
 td{
-    padding: 20px 270px;
+    padding: 20px 185px;
 }
-
 
 `
 

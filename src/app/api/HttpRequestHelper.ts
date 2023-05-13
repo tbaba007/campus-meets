@@ -1,4 +1,3 @@
-'use client'
 import { httpJsonResponseResolver, httpTextResponseResolver } from "./HttpResponseHelper";
 const baseUrl = process.env.APP_API;
 interface IHttpProps {

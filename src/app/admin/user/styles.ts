@@ -14,7 +14,7 @@ max-height: 15vh;
 margin-top: 60px;
 margin-left: 200px;
 td{
-    padding: 20px 80px;
+    padding: 20px 35px;
 }
 `
 export const UserListTableBody=styled.tbody`
