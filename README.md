@@ -14,6 +14,7 @@ NB: Please you need to have PostgreSQL to use this.
 
 Check ther Server folder to see the db scripts inside the db folder.
 
+
 Also, Change the connection below in the package.json in the server folder to your db details
 ```
  "env": {
@@ -21,7 +22,10 @@ Also, Change the connection below in the package.json in the server folder to yo
       "User": "postgres",
       "Host": "localhost",
       "Database": "postgres",
-      "Password": "",
+      "Password": "" ** please change this to your password **,
       "DBPort": "5432"
     }
 ```
+
+
+### Happy Coding
