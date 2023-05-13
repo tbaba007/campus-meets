@@ -1,8 +1,6 @@
 import { IUserProps } from "../../user/register/types";
 import { GET,POST, PUT } from "../HttpRequestHelper"
 
-
-
 export const GetAll= ()=>{
  return  GET({path:"users/GetAll"});
 }
@@ -25,6 +23,5 @@ export const DisableUser=(id:number)=>{
 }
 
 export const RegisterUser=(data:IUserProps)=>{
-  debugger;
  return POST({path:`users/AddUser`,payload:data})
 }

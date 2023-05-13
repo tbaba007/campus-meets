@@ -27,7 +27,7 @@ export const GET =  ({ path }: IHttpProps) => {
 
 export const POST = async ({ path, payload }: IHttpProps) => {
   const method = "POST";
-  return fetch(`http://localhost:4000/${path}`, RequestHeader(method, payload)).then(
+  return fetch(`${baseUrl}/${path}`, RequestHeader(method, payload)).then(
     httpJsonResponseResolver
   )
 };

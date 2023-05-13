@@ -32,12 +32,14 @@ app.get("/CheckEmail/:email", (req, res) => {
 
 app.post("/AddUser", async (req, res, next) => {
   const { FirstName, LastName, Email, StudentId, Mobile, Password } = req.body;
+  console.log(req.body)
     AppPool.query(
     `insert into meets."User" 
     ("FirstName", "LastName", "Email", "StudentId", "Mobile", "Password", "isactive", "RoleId")
      values ($1,$2,$3,$4,$5,$6,$7,$8)`,
     [FirstName, LastName, Email, StudentId, Mobile, Password, true, 2],(err,result)=>{
       if(err){
+        console.log(res)
         res.send(err.message);
       }
       else{

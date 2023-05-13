@@ -1,4 +1,4 @@
-'use client'
+'use-client'
 import { useRef, useState,useEffect } from "react";
 import { AppColors, saveMessage } from "../../../helper/common";
 import ButtonUi from "@/ui/button/button";
@@ -15,19 +15,13 @@ import {
   RegisterLink,
 } from "./styles";
 import { useRouter } from "next/navigation";
-import useFetch from "@/app/hooks/useFetch";
-import { UserProps } from "../types";
+import { UserLogin } from "../../api/services/user";
 
-const Page = () => {
-  const {isLoading,data,error,statusCode ,postData}=useFetch({urlPath:'users/auth'})
-
+const Login = () => {
   const loginRef=useRef<HTMLInputElement>(null)
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  if(typeof document !=='undefined'){
-    document.title="Login"
-
-  }
+  document.title="Login"
   const navigate=useRouter();
 
   useEffect(()=>{
@@ -36,25 +30,18 @@ const Page = () => {
     }
   },[])
 
-
   const onLogin = async() => {
-    if (!username.trim()) return toast.error("Please enter a valid email address");
-    if (!password.trim()) return toast.error("Please enter a valid password");
+    if (!username.trim()) return toast("Please enter a valid email address");
+    if (!password.trim()) return toast("Please enter a valid password");
     //call Api
     try{
-      const payload:Partial<UserProps>={
-        Email:username,
-        Password:password
-      }
-       postData(payload,{method:'POST'});
-       debugger;
-      if(!isLoading && !error && statusCode>-1){
-        const response:UserProps[]=data!!;
-        saveMessage("user",JSON.stringify(response[0]))
-        if(response[0].role==="user"){
+      const isSuccessful=await UserLogin(username,password);
+      if(isSuccessful && isSuccessful.length>0){
+        saveMessage("user",JSON.stringify(isSuccessful[0]))
+        if(isSuccessful[0].role==="user"){
           return navigate.push('/dashboard')
         }
-        return navigate.push('/overview') 
+        return navigate.push('/admin/overview') 
       }
       toast.error("Invalid Username Or Password")
     }
@@ -109,4 +96,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default Login;

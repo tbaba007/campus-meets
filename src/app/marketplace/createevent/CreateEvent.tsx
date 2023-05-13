@@ -1,8 +1,6 @@
 'use client'
-
 import React, { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
-import { start } from "repl";
 import { AddEvent } from "../../api/services/events";
 import { GetAllSports } from "../../api/services/sports";
 import { GetAll } from "../../api/services/user";
@@ -41,7 +39,6 @@ const date = new Date();
 //                 + currentdate.getMinutes()
 
 const CreateEvent = () => {
-  if(typeof document !=='undefined')
   document.title = "Create Event";
   const userDetails = getMessage("user")!!;
 
@@ -363,7 +360,7 @@ const CreateEvent = () => {
                             {userArr.length > 0 &&
                               userArr
                                 .sort((a, b) =>
-                                  a.FirstName!!.localeCompare(b.FirstName!!)
+                                  a?.FirstName!!.localeCompare(b?.FirstName!!)
                                 ).filter(x=>x.StudentId !==StudentId)
                                 .map((item) => {
                                   return (
