@@ -1,4 +1,4 @@
-'use-client'
+'use client'
 import { useRef, useState,useEffect } from "react";
 import { AppColors, saveMessage } from "../../../helper/common";
 import ButtonUi from "@/ui/button/button";
@@ -17,7 +17,7 @@ import {
 import { useRouter } from "next/navigation";
 import { UserLogin } from "../../api/services/user";
 
-const Login = () => {
+export default function Page() {
   const loginRef=useRef<HTMLInputElement>(null)
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -96,4 +96,3 @@ const Login = () => {
   );
 };
 
-export default Login;
