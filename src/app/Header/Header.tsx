@@ -2,11 +2,17 @@
 import { getMessage, removeMessageByKey } from "@/helper/common";
 import { HeaderContainer, HeaderProfileDropDown, HeaderText } from "./styles";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const Header = () => {
   const navigate = useRouter();
   const user = getMessage("user");
 
+  useEffect(()=>{
+      if(!user){
+        navigate.push('/user/login')
+      }
+  },[])
   const onSignOut = () => {
     removeMessageByKey("user");
     navigate.push("/user/login");
