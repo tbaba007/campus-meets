@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useState, useEffect } from "react";
 import {
   GetReceivedRequestsById,
@@ -25,13 +25,12 @@ const ReceivedRequestList = () => {
   const [userDetails, setUserDetails] = useState<IRequestProps>();
   const [selectedId, setSelectedId] = useState(0);
   const [updateId, setUpdateId] = useState("");
-  if(typeof document !=='undefined')
-  document.title = "Received Request List";
+  if (typeof document !== "undefined") document.title = "Received Request List";
 
   useEffect(() => {
     const getReceivedRequests = async () => {
       const data: IRequestProps[] = await GetReceivedRequestsById(
- getUser().StudentId
+        getUser().StudentId
       );
       setReceivedRequestList(data);
     };
@@ -48,226 +47,171 @@ const ReceivedRequestList = () => {
     setUserDetails(item);
   };
 
-
   const isEventPassed = (item: IRequestProps): boolean => {
+    const startDate = new Date(item.StartDate).getDate();
 
-    
-  const startDate = new Date(item.StartDate).getDate();
-    
-  const endDate = new Date(item.EndDate).getDate();
-    
-     const endTime = new Date(item.EndTime);
-    
-     const now= today.getHours() + ":" + today.getMinutes();
-    
-     if (
-    
-     startDate <= today.getDate() &&
-    
-     endDate > today.getDate() &&
-    
-     !item.Acceptedids?.includes( getUser().StudentId)
-    
-     ) {
-    
-     return true;
-    
-     }
-    
-     console.log('here',Number(item.EndTime.split(":")[0]))
-    
-     if (
-    
-     startDate <= today.getDate() &&
-    
-     endDate === today.getDate()&&
-    
-     Number(item.EndTime.split(":")[0]) > Number(now.split(":")[0])
-    
-     && !item.Acceptedids?.includes( getUser().StudentId)
-    
-     ) {
-    
-     return true;
-    
-     }
-    
-     if (
-    
-     startDate > today.getDate() &&
-    
-     endDate > today.getDate()
-    
-    
-    
-     && !item.Acceptedids?.includes( getUser().StudentId)
-    
-     ) {
-    
-     return true;
-    
-     }
-    
-    
-    
-    
-     return false;
-    
-    };
-    
-    
+    const endDate = new Date(item.EndDate).getDate();
 
-      const onAccept = async ({
+    const endTime = new Date(item.EndTime);
 
-  StudentId,
- 
-  Acceptedids,
- 
-  MarketPlaceId,
- 
- }: IRequestProps) => {
- 
-  if (window.confirm("Are you sure you want to accept?")) {
- 
- 
-  const acceptedIds = Acceptedids?.split(",") as string[];
- 
-  if (acceptedIds?.length > 0) {
- 
- const ids = [...acceptedIds,getUser().StudentId].join(",");
- 
- const accept = await JoinEvent(MarketPlaceId!!, ids);
- 
- if (accept) {
- 
-  setUpdateId(`${MarketPlaceId}accept`);
- 
-  toast.success("Event accepted successfully");
- 
- }
- 
- else{
- 
-  toast.error('An error occurred ');
- 
- }
- 
-  } else {
- 
- const accept = await JoinEvent(MarketPlaceId!!,getUser().StudentId);
- 
- if(accept){
- 
-  setUpdateId(`${MarketPlaceId}accept`);
- 
-  toast.success("Event accepted successfully");
- 
- }
- 
- else{
- 
-  toast.error('An error occurred ');
- 
- }
- 
- 
- 
-  }
- 
-  }
- 
- };
+    const now = today.getHours() + ":" + today.getMinutes();
 
+    if (
+      startDate <= today.getDate() &&
+      endDate > today.getDate() &&
+      !item.Acceptedids?.includes(getUser().StudentId)
+    ) {
+      return true;
+    }
 
-  const onReject = async(item: IRequestProps) => {
-    if (window.confirm("Are you sure you want to reject?")) {
-      const inviteesIds = item.InviteesIds.replace("{", "")
- .replace("}", "")
- .replace('"', "")
- .replaceAll('"', "")
- .split(",");
- const studentId=getUser().StudentId;
- const userIndex=inviteesIds.findIndex(x=>x===studentId)
+    console.log("here", Number(item.EndTime.split(":")[0]));
 
-      const removeId=inviteesIds.splice(userIndex,0).join();
+    if (
+      startDate <= today.getDate() &&
+      endDate === today.getDate() &&
+      Number(item.EndTime.split(":")[0]) > Number(now.split(":")[0]) &&
+      !item.Acceptedids?.includes(getUser().StudentId)
+    ) {
+      return true;
+    }
 
-      const isRejected=await UnJoin(item.MarketPlaceId!!,removeId);
-      if(isRejected){
- setUpdateId(`${item.MarketPlaceId}rejected`);
- toast.success('Event rejected successfully');
-      }
-      else{
- toast.error('An error occurred ');
+    if (
+      startDate > today.getDate() &&
+      endDate > today.getDate() &&
+      !item.Acceptedids?.includes(getUser().StudentId)
+    ) {
+      return true;
+    }
+
+    return false;
+  };
+
+  const onAccept = async ({
+    StudentId,
+
+    Acceptedids,
+
+    MarketPlaceId,
+  }: IRequestProps) => {
+    if (window.confirm("Are you sure you want to accept?")) {
+      const acceptedIds = Acceptedids?.split(",") as string[];
+
+      if (acceptedIds?.length > 0) {
+        const ids = [...acceptedIds, getUser().StudentId].join(",");
+
+        const accept = await JoinEvent(MarketPlaceId!!, ids);
+
+        if (accept) {
+          setUpdateId(`${MarketPlaceId}accept`);
+
+          toast.success("Event accepted successfully");
+        } else {
+          toast.error("An error occurred ");
+        }
+      } else {
+        const accept = await JoinEvent(MarketPlaceId!!, getUser().StudentId);
+
+        if (accept) {
+          setUpdateId(`${MarketPlaceId}accept`);
+
+          toast.success("Event accepted successfully");
+        } else {
+          toast.error("An error occurred ");
+        }
       }
     }
   };
-  
+
+  const onReject = async (item: IRequestProps) => {
+    if (window.confirm("Are you sure you want to reject?")) {
+      const inviteesIds = item.InviteesIds.replace("{", "")
+        .replace("}", "")
+        .replace('"', "")
+        .replaceAll('"', "")
+        .split(",");
+      const studentId = getUser().StudentId;
+      const userIndex = inviteesIds.findIndex((x) => x === studentId);
+
+      const removeId = inviteesIds.splice(userIndex, 0).join();
+
+      const isRejected = await UnJoin(item.MarketPlaceId!!, removeId);
+      if (isRejected) {
+        setUpdateId(`${item.MarketPlaceId}rejected`);
+        toast.success("Event rejected successfully");
+      } else {
+        toast.error("An error occurred ");
+      }
+    }
+  };
+
   return (
     <LayoutContainer>
       <Sidebar />
       <Header />
       <ReceivedRequestListContainer>
- <thead>
-   <tr>
-     <th>SN</th>
-     <th>Requester</th>
-     <th>Event Title</th>
-     <th>Sport</th>
-     <th>Start Date</th>
-     <th>Start Time</th>
-     <th>End Date</th>
-     <th>End Time</th>
-   </tr>
- </thead>
+        <thead>
+          <tr>
+            <th>SN</th>
+            <th>Requester</th>
+            <th>Event Title</th>
+            <th>Sport</th>
+            <th>Start Date</th>
+            <th>Start Time</th>
+            <th>End Date</th>
+            <th>End Time</th>
+          </tr>
+        </thead>
 
- <tbody>
-   {receivedRequestList.length > 0 &&
-     receivedRequestList.map((item, index) => {
-return (
-  <>
-    <tr key={item.UserId}>
-      <td>{index + 1}</td>
-      <td>
- <Requester onClick={() => onRequesterClick(item, index)}>
-   {item.FirstName}&nbsp;{item.LastName}
- </Requester>
-      </td>
-      <td>{item.Title}</td>
-      <td>{item.sport}</td>
-      <td>{item.StartDate}</td>
-      <td>{item.StartTime}</td>
-      <td>{item.EndDate}</td>
-      <td>{item.EndTime}</td>
-      <td>
- {isEventPassed(item) && (
-   <>
-     <ButtonUi
-height="50px"
-width="100px"
-onClick={() => onAccept(item)}
-backgroundColor={AppColors[0].value}
-children={<p>Accept</p>}
-     />
-     &nbsp;
-     <ButtonUi
-height="50px"
-width="100px"
-onClick={() => onReject(item)}
-backgroundColor={AppColors[1].value}
-children={<p>Reject</p>}
-     />
-   </>
- )}
-      </td>
-    </tr>
-    {selectedId === index && userDetails?.FirstName && (
-      <RequesterDetails key={item.MarketPlaceId} {...item} />
-    )}
-  </>
-);
-     })}
-   <tr>{receivedRequestList.length < 1 && <td>No Request Found</td>}</tr>
- </tbody>
+        <tbody>
+          {receivedRequestList.length > 0 &&
+            receivedRequestList.map((item, index) => {
+              return (
+                <>
+                  <tr key={item.UserId}>
+                    <td>{index + 1}</td>
+                    <td>
+                      <Requester onClick={() => onRequesterClick(item, index)}>
+                        {item.FirstName}&nbsp;{item.LastName}
+                      </Requester>
+                    </td>
+                    <td>{item.Title}</td>
+                    <td>{item.sport}</td>
+                    <td>{item.StartDate}</td>
+                    <td>{item.StartTime}</td>
+                    <td>{item.EndDate}</td>
+                    <td>{item.EndTime}</td>
+                    <td>
+                      {isEventPassed(item) && (
+                        <>
+                          <ButtonUi
+                            height="50px"
+                            width="100px"
+                            onClick={() => onAccept(item)}
+                            backgroundColor={AppColors[0].value}
+                          >
+                            <p>Accept</p>
+                          </ButtonUi>
+                          &nbsp;
+                          <ButtonUi
+                            height="50px"
+                            width="100px"
+                            onClick={() => onReject(item)}
+                            backgroundColor={AppColors[1].value}
+                          >
+                            <p>Reject</p>
+                          </ButtonUi>
+                        </>
+                      )}
+                    </td>
+                  </tr>
+                  {selectedId === index && userDetails?.FirstName && (
+                    <RequesterDetails key={item.MarketPlaceId} {...item} />
+                  )}
+                </>
+              );
+            })}
+          <tr>{receivedRequestList.length < 1 && <td>No Request Found</td>}</tr>
+        </tbody>
       </ReceivedRequestListContainer>
       <ToastContainer />
     </LayoutContainer>

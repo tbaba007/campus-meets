@@ -73,8 +73,9 @@ const EditUser = (props:IUserProps) => {
         <Card
           width="400px"
           height="500px"
-          children={
-            <>
+          
+        >
+           <>
               <p>Edit User</p>
               <EditUserContainer>
                 <RegisterInputFieldHeader>FirstName</RegisterInputFieldHeader>
@@ -106,19 +107,22 @@ const EditUser = (props:IUserProps) => {
                   height="50px"
                   onClick={onSave}
                   backgroundColor={AppColors[0].value}
-                  children={<label>Save</label>}
-                />
+                
+                >
+                  <label>Save</label>
+                  </ButtonUi>
                 <ButtonUi
                   width="100px"
                   height="50px"
                   onClick={onCancel}
                   backgroundColor={AppColors[1].value}
-                  children={<label>Cancel</label>}
-                />
+                  
+                >
+                  <label>Cancel</label>
+                  </ButtonUi>
               </EditUserFooterContainer>
             </>
-          }
-        />
+          </Card>
       </EditUserComponent>
       <ToastContainer/>
     </LayoutContainer>

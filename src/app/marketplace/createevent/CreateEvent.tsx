@@ -39,11 +39,12 @@ const date = new Date();
 //                 + currentdate.getMinutes()
 
 const CreateEvent = () => {
+  if(typeof window!='undefined')
   document.title = "Create Event";
   const userDetails = getMessage("user")!!;
 
-  const RequesterId = JSON.parse(userDetails).UserId;
-  const StudentId = JSON.parse(userDetails).StudentId;
+  const RequesterId = userDetails?JSON.parse(userDetails).UserId:0;
+  const StudentId = userDetails?JSON.parse(userDetails).StudentId:0;
   const [sportsArr, setSportsArr] = useState<ISportsProps[]>([]);
   const [userArr, setUserArr] = useState<IUserProps[]>([]);
   const [selectedPlayer, setSelectedPlayer] = useState("");
@@ -92,7 +93,7 @@ const CreateEvent = () => {
       });
     };
     FetchData();
-  }, []);
+  }, [state]);
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setState({
@@ -150,7 +151,6 @@ const CreateEvent = () => {
   }
 
   const onCreate = async () => {
-    debugger;
     const {
       Description,
       InviteesId,
@@ -261,8 +261,9 @@ const CreateEvent = () => {
             <Card
               height="800px"
               width="600px"
-              children={
-                <>
+              
+            >
+               <>
                   <p>Create New Event</p>
                   <Container>
                     <EventFieldsContainer>
@@ -381,8 +382,9 @@ const CreateEvent = () => {
                               backgroundColor={AppColors[0].value}
                               height="20px"
                               width="50px"
-                              children={<label>Add</label>}
-                            />
+                             >
+                              <label>Add</label>
+                              </ButtonUi>
                           </BtnAddContainer>
                           <DisplayList>
                             {state.InviteesId.map((item, index) => {
@@ -469,25 +471,28 @@ const CreateEvent = () => {
                     width="100px"
                     onClick={onCreate}
                     backgroundColor={AppColors[0].value}
-                    children={<label>Create Event</label>}
-                  />
+                    >
+                      <label>Create Event</label>
+                      </ButtonUi>
                   &nbsp; &nbsp; &nbsp;
                   <ButtonUi
                     height="50px"
                     width="100px"
                     backgroundColor={AppColors[1].value}
-                    children={<label>Create Fields</label>}
-                  />
+                    
+                  >
+                    <label>Create Fields</label>
+                    </ButtonUi>
                 </>
-              }
-            />
+              </Card>
           )}
           {isEventCreated && (
             <Card
               height="200px"
               width="500px"
-              children={<p><b>`{state.Title}`</b> <b></b><br/> <br/> has been created successfully</p>}
-            />
+            >
+              <p><b>`{state.Title}`</b> <b></b><br/> <br/> has been created successfully</p>
+              </Card>
           )}
         </>
       </EventContainer>

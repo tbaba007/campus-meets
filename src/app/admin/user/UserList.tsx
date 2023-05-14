@@ -79,16 +79,20 @@ const UserList = () => {
                     height="30px"
                     onClick={() => onEdit(item)}
                     backgroundColor={AppColors[0].value}
-                    children={<label>Edit</label>}
-                  />
+                    
+                  >
+                    <label>Edit</label>
+                    </ButtonUi>
                   &nbsp;&nbsp;
                   <ButtonUi
                     width="100px"
                     height="30px"
                     onClick={() => onDelete(item)}
                     backgroundColor={AppColors[1].value}
-                    children={<label>Delete</label>}
-                  />
+                   
+                  >
+                    <label>Delete</label>
+                    </ButtonUi>
                 </td>
               </tr>
             );

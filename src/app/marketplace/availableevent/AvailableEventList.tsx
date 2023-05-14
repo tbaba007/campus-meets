@@ -24,8 +24,8 @@ const AvailableEvent = () => {
     const data: IAvailableEventProps[] = await GetAvailableEvents();
     setAvailableEventList(data);
   };
-
-  const userId=JSON?.parse(getMessage('user')!!)?.UserId
+  const userDetails=getMessage('user');
+  const userId=userDetails?JSON.parse(getMessage('user')!!).UserId:0;
   useEffect(() => {
     getAvailableEvents();
   }, []);

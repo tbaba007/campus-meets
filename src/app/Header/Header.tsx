@@ -12,7 +12,7 @@ const Header = () => {
       if(!user){
         navigate.push('/user/login')
       }
-  },[])
+  },[user,navigate])
   const onSignOut = () => {
     removeMessageByKey("user");
     navigate.push("/user/login");

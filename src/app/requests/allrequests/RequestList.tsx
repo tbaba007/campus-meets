@@ -71,8 +71,10 @@ const Requestlist = () => {
                       height="3em"
                       width="5em"
                       onClick={() => onDelete(item.MarketPlaceId!!)}
-                      children={<label>Delete</label>}
-                    />
+                     
+                    >
+                      <label>Delete</label>
+                      </ButtonUi>
                   </td>
                 </tr>
               </>

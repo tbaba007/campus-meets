@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import {
   GetAcceptedAvailableEvents,
@@ -17,25 +17,25 @@ const AcceptedRequest = () => {
   const [updatedId, setUpdateId] = useState("");
 
   const userDetails = getMessage("user")!!;
-  const StudentId = JSON.parse(userDetails).StudentId;
+  const StudentId = userDetails?JSON.parse(userDetails).StudentId:0;
   console.log(StudentId);
 
   const [acceptedAvailableEvent, setacceptedAvailableEvent] = useState<
     IAvailableEventProps[]
   >([]);
 
-  const getAcceptedAvailableEvents = async () => {
+  const getAcceptedAvailableEvents = useCallback(async () => {
     const data: IAvailableEventProps[] = await GetAcceptedAvailableEvents(
       StudentId
     );
 
     console.log("ddfdfdf", data);
     setacceptedAvailableEvent(data);
-  };
+  },[StudentId]);
 
   useEffect(() => {
     getAcceptedAvailableEvents();
-  }, [updatedId]);
+  }, [updatedId,getAcceptedAvailableEvents]);
 
   const unJoin = async (item: IAvailableEventProps) => {
     if (window.confirm("Are you sure you want to unjoin?")) {
@@ -119,8 +119,11 @@ const AcceptedRequest = () => {
                       height="50px"
                       onClick={() => unJoin(item)}
                       backgroundColor={AppColors[0].value}
-                      children={<label>Unjoin</label>}
-                    />
+                      
+                    >
+                      <label>Unjoin</label>
+                      </ButtonUi>
+                    
                     </AcceptedEventListTableHeader>
                    
 

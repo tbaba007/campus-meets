@@ -21,7 +21,6 @@ import { EditSportsContainer } from "../styles";
 import { ISportsProps } from "../../types";
 
 const EditSports = (props: ISportsProps) => {
-  debugger;
   const navigate = useRouter();
   const onSave = async () => {
     if (!name.trim()) {
@@ -52,8 +51,9 @@ const EditSports = (props: ISportsProps) => {
         <Card
           width="400px"
           height="300px"
-          children={
-            <>
+         
+        >
+             <>
               <p>Edit Sport</p>
               <EditUserContainer>
                 <RegisterInputFieldHeader>Sports Name</RegisterInputFieldHeader>
@@ -70,19 +70,22 @@ const EditSports = (props: ISportsProps) => {
                   height="50px"
                   onClick={onSave}
                   backgroundColor={AppColors[0].value}
-                  children={<label>Save</label>}
-                />
+                  
+                >
+                  <label>Save</label>
+                  </ButtonUi>
                 <ButtonUi
                   width="100px"
                   height="50px"
                   onClick={onCancel}
                   backgroundColor={AppColors[1].value}
-                  children={<label>Cancel</label>}
-                />
+                 
+                >
+                  <label>Cancel</label>
+                  </ButtonUi>
               </EditUserFooterContainer>
             </>
-          }
-        />
+          </Card>
       </EditSportsContainer>
       <ToastContainer />
     </LayoutContainer>

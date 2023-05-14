@@ -59,9 +59,8 @@ export default function Page() {
     <Container>
       <Card
         width="380px"
-        height="500px"
-        children={
-          <LoginContainer>
+        height="500px">
+             <LoginContainer>
             <p>Login</p>
             <form onSubmit={onLogin}>
               <LoginInputContainer>
@@ -84,13 +83,13 @@ export default function Page() {
               height="40px"
               width="200px"
               backgroundColor={AppColors[0].value}
-              children={<p>Login</p>}
-            />
+            >
+              <p>Login</p>
+              </ButtonUi>
             <RegisterLink onClick={onRegister}>New here? create account</RegisterLink>
 
           </LoginContainer>
-        }
-      />
+        </Card>
             <ToastContainer />
 
     </Container>

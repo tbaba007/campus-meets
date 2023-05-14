@@ -41,8 +41,8 @@ const OverView = () => {
       <Header/>
 
       <TopContainer>
-        <Card width="200px" height="100px" children={<p>Total Users <br/> <p>{userCount??0}</p></p>} />
-        <Card width="200px" height="100px" children={<p>Events Count <br/> <p>{eventCount??0}</p></p>} />
+        <Card width="200px" height="100px"><p>Total Users <br/> <p>{userCount??0}</p></p></Card>
+        <Card width="200px" height="100px">{<p>Events Count <br/> <p>{eventCount??0}</p></p>}</Card>
       
       </TopContainer>
     </LayoutContainer>

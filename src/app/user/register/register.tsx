@@ -89,8 +89,8 @@ const Register = () => {
       <Card
         width="580px"
         height="550px"
-        children={
-          <>
+      >
+         <>
             <p>Join Now</p>
             <br/>
             {isEmailError && <EmailExistsErr>Email Already Exists</EmailExistsErr>}
@@ -132,14 +132,13 @@ const Register = () => {
               </RegisterInputFieldContainer>
             </RegisterInputContainer>
             <br/>
-            <ButtonUi onClick={onRegister} backgroundColor={AppColors[0].value} width="150px" height="40px" children={<label>Register</label>} />
+            <ButtonUi onClick={onRegister} backgroundColor={AppColors[0].value} width="150px" height="40px"><label>Register</label></ButtonUi>
               <br/>
               <br/>
              <RegisteredLabel href="user/login">Click Here to login</RegisteredLabel> 
             
           </>
-        }
-      />
+        </Card>
       <ToastContainer/>
     </Container>
   );

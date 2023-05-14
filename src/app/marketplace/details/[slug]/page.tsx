@@ -86,7 +86,9 @@ return <LayoutContainer>
             <Card
             height='300px'
             width='400px'
-            children={<>
+            
+            >
+                 <>
             <br/>
             <br/>
             <p>Name:{FirstName} &nbsp; {LastName}</p>
@@ -103,20 +105,22 @@ return <LayoutContainer>
                     height="50px"
                     width='100px'
                     onClick={onJoin}
-                    children={<label>Join</label>}
-                    /> 
+                    > 
+                    <label>Join</label>
+                    </ButtonUi>
                     &nbsp;
                     <ButtonUi
                     backgroundColor={AppColors[1].value}
                     height="50px"
                     width='100px'
                     onClick={onCancel}
-                    children={<label>Cancel</label>}
-                    /> 
+                    > 
+                    <label>Cancel</label>
+                    </ButtonUi>
                     </span>
             
-            </>}
-            />
+            </>
+                </Card>
         </DetailsContainer>
        <ToastContainer/>
       </LayoutContainer>
