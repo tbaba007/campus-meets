@@ -15,6 +15,7 @@ const Page = () => {
   const StudentId=userDetails?JSON.parse(userDetails).StudentId:0;
   if(typeof window!=='undefined')
     document.title="DashBoard"
+    
     const [requestSentCount,setRequestSentCount]=useState(0);
     const [requestReceivedCount,setRequestReceivedCount]=useState(0);
     const [gamesPlayedCount,setGamesPlayedCount]=useState(0);

@@ -74,7 +74,7 @@ app.get("/GetSentRequestById/:id", (req, res) => {
   const { id } = req.params;
   AppPool.query(
     `Select U."FirstName",U."LastName",
-    m."Location",m."Notified",  m."Title",S."Name" as Sport,
+    m."Location",m."notified",  m."Title",S."Name" as Sport,
     m."NumberOfPlayers",m."StartDate",m."StartTime",
     m."EndDate",m."EndTime",m."Acceptedids",m."InviteesIds",m."MarketPlaceId",
     array_length(string_to_array(m."Acceptedids", ','), 1) as remaining_count
@@ -267,7 +267,6 @@ AND m."Acceptedids" LIKE $3
 
 app.get('/GetGamesCountById/:id',(req,res)=>{
   const {id}=req.params;
-  console.log(id)
   AppPool.query('select * from meets."MarketPlace" where "Acceptedids" LIKE $1',[`%${id}%`],(err,results)=>{
     if(results.rows.length>0){
       const _result=results.rows.filter(x=>x.Acceptedids.split(',').find(x=>x===id));
@@ -277,6 +276,25 @@ app.get('/GetGamesCountById/:id',(req,res)=>{
       res.send(results.rows)
     }
   })
+})
+
+app.get('/GetEventById/:id',(req,res)=>{
+  const {id}=req.params;
+
+  AppPool.query(`select s."Name" as sport,u."FirstName",u."LastName",m."Location",m."Description",m."MarketPlaceId",m."Title" from meets."MarketPlace" m
+  join meets."User" u on u."UserId" = m."RequesterId" 
+  join meets."Sports" s on s."SportId"=m."SportsId"
+   where m."MarketPlaceId"=$1`,[id],(err,result)=>{
+    if(!err){
+      res.send(result.rows)
+
+    }
+    else{
+      console.log(err)
+      res.sendStatus(500)
+
+    }
+})
 })
 
 

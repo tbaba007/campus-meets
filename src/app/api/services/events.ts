@@ -1,4 +1,4 @@
-import { IEventProps } from "../../components/marketplace/types"
+import { IEventProps } from "../../marketplace/types"
 import { DELETE, GET, PATCH, POST } from "../HttpRequestHelper"
 
 
@@ -74,5 +74,11 @@ export const UnJoinAcceptedEvent= (id:number,Acceptedids:string ) =>{
 export const NotifyById = (id:number) =>{
     return GET({
         path:`marketplace/NotifyUsers/${id}`
+    })
+}
+
+export const GetEventById=(id:number)=>{
+    return GET({
+        path:`marketplace/GetEventById/${id}`
     })
 }

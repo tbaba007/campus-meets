@@ -41,9 +41,9 @@ const Register = () => {
     const {Email,FirstName,LastName,Password,StudentId,Mobile}=state;
     if(!FirstName?.trim())return toast.error("Please Enter FirstName");
     if(!LastName?.trim())return toast.error("Please Enter LastName");
-    if(!Password.trim())return toast.error("Please Enter Password");
+    if(!Password!!.trim())return toast.error("Please Enter Password");
     if(!StudentId?.trim())return toast.error("Please Enter StudentId");
-    if(!Email.trim())return toast.error("Please Enter Email");
+    if(!Email!!.trim())return toast.error("Please Enter Email");
 
 
     //call api
@@ -60,7 +60,7 @@ const Register = () => {
         toast.success("Registration successful");
 
         setTimeout(()=>{
-            navigate.push('/login')
+            navigate.push('/user/login')
         },5000)
         return;
       }

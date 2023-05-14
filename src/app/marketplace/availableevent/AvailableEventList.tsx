@@ -14,7 +14,7 @@ import {
 import { IAvailableEventProps } from "./types";
 
 const AvailableEvent = () => {
-  
+  if(typeof window !='undefined')
   document.title = "Available Events";
   const [availableEventList, setAvailableEventList] = useState<
     IAvailableEventProps[]
@@ -25,7 +25,7 @@ const AvailableEvent = () => {
     setAvailableEventList(data);
   };
 
-  const userId=JSON.parse(getMessage('user')!!).UserId
+  const userId=JSON?.parse(getMessage('user')!!)?.UserId
   useEffect(() => {
     getAvailableEvents();
   }, []);
@@ -80,10 +80,7 @@ const AvailableEvent = () => {
                            item.Title }
 
                             {item.RequesterId!== userId &&
-                          <Link href={{
-                            pathname:'/eventDetails',
-                            query:JSON.stringify(item)
-                          }}
+                          <Link href={`/marketplace/details/${item.MarketPlaceId}`}
                            > {item.Title}</Link> }
                           </AvailableEventListTableData>
                           <AvailableEventListTableData>

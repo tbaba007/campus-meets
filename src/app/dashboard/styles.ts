@@ -8,6 +8,7 @@ width: 100%;
 padding-left: 10px;
 padding-right: 10px;
 margin-left: 200px;
+margin-top: 50px;
 `
 
 export const DashBoardScoreHeader=styled.p`

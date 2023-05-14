@@ -1,22 +1,26 @@
-import React from 'react'
-import { useLocation, useNavigate } from 'react-router-dom';
+'use client'
+import React, { use } from 'react'
+import { useRouter,useParams } from 'next/navigation';
 import { toast, ToastContainer } from 'react-toastify';
-import { JoinEvent } from '../../../api/services/events';
-import { AppColors, getMessage } from '../../../helper/common';
-import Header from '../../Header';
-import { LayoutContainer } from '../../layout';
-import Sidebar from '../../sidebar';
-import ButtonUi from '../../ui/button/button';
-import Card from '../../ui/card';
-import { DetailsContainer } from './styles';
-import { IAvailableEventProps } from './types';
+import { GetEventById, JoinEvent } from '../../../api/services/events';
+import { AppColors, getMessage } from '@/helper/common';
+import Header from '../../../Header';
+import { LayoutContainer } from '@/ui/layout/styles';
+import Sidebar from '../../../sidebar';
+import ButtonUi from '@/ui/button/button';
+import Card from '@/ui/card';
+import { DetailsContainer } from '../../availableevent/styles';
+import { IAvailableEventProps } from '../../availableevent/types';
+
+async function fetchData(id:number){
+    return GetEventById(id)
+}
 
 
-
-const EventDetails=()=>{
+const Page=({params}:any)=>{
+    const data=use(fetchData(Number(params?.slug)));
     let StudentId='';
-    const {state}=useLocation();
-    const navigate=useNavigate();
+    const navigate=useRouter();
     const user=getMessage('user');
     if(user){
         StudentId=JSON.parse(user).StudentId;
@@ -31,16 +35,15 @@ const EventDetails=()=>{
         MarketPlaceId,
         
 
-    }=state as IAvailableEventProps;
+    }=data[0] as IAvailableEventProps;
 
     const onCancel=()=>{
-        navigate('/availableevents')
+        navigate.push('/marketplace/availableevent')
     }
     
     const onJoin=async()=>{
         if(window.confirm('Are you sure you want to join this event?'))
         {
-            debugger;
             if(Acceptedids){
                 const acceptedUsers=Acceptedids.split(',');
                 //check if user already joined this event
@@ -54,7 +57,7 @@ const EventDetails=()=>{
                         if(updateData){
                             toast.success('Event joined successfully!');
                             setTimeout(()=>{
-                                navigate('/availableevents')
+                                navigate.push('/marketplace/availableevent')
                             },3000)
                         }
                 }
@@ -64,7 +67,7 @@ const EventDetails=()=>{
                   if(updateData){
                     toast.success('Event joined successfully!');
                     setTimeout(()=>{
-                        navigate('/availableevents')
+                        navigate.push('/marketplace/availableevent')
                     },3000)
                 }
 
@@ -84,22 +87,29 @@ return <LayoutContainer>
             height='300px'
             width='400px'
             children={<>
+            <br/>
+            <br/>
             <p>Name:{FirstName} &nbsp; {LastName}</p>
             <p>Title: &nbsp;{Title} </p>
             <p>Sport: &nbsp;{sport} </p>
             <p>Location: &nbsp;{Location}</p>
             <p>Description: &nbsp;{Description}</p>
+            <br/>
+            <br/>
             
-            <span><ButtonUi
+            <span style={{marginTop:'100px'}}>
+                <ButtonUi
                     backgroundColor={AppColors[0].value}
-                    height="30px"
+                    height="50px"
+                    width='100px'
                     onClick={onJoin}
                     children={<label>Join</label>}
                     /> 
                     &nbsp;
                     <ButtonUi
                     backgroundColor={AppColors[1].value}
-                    height="30px"
+                    height="50px"
+                    width='100px'
                     onClick={onCancel}
                     children={<label>Cancel</label>}
                     /> 
@@ -112,4 +122,4 @@ return <LayoutContainer>
       </LayoutContainer>
 }
 
-export default EventDetails;
+export default Page;
