@@ -9,6 +9,9 @@ max-height: 15vh;
 margin-top: 60px;
 margin-left: 200px;
 
+td{
+    padding:20px 45px
+}
 
 `
 export const ReceivedRequestListContainer=styled.table`
