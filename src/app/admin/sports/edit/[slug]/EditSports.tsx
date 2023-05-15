@@ -30,7 +30,7 @@ const EditSports = (props: ISportsProps) => {
     if (props[0]?.Name !== name) {
       const updateName = capitalizeFirstLetter(name)!!;
       //@ts-ignore
-      const isUpdate = await Update(Number(props[0]?.id), updateName);
+      const isUpdate = await Update(Number(props[0]?.SportId), updateName);
       if (isUpdate && isUpdate === "OK") {
         return toast.success("Sport Updated Successfully");
       }
