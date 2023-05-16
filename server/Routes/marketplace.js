@@ -63,7 +63,6 @@ const Acceptedids=null;
       if (!err) {
         res.send(result);
       } else {
-        console.log(err.message)
         res.send(err.message);
       }
     }
@@ -117,7 +116,6 @@ app.get("/GetReceivedRequestById/:id", (req, res) => {
     [`%${id}%`],
     (err, result) => {
       if (err) {
-        console.log(err.message)
         res.send(err);
       } else {
         res.send(result.rows);
@@ -148,8 +146,6 @@ app.get("/GetAvailableEvents", (req, res) => {
   const currentdate = new Date();
   let currentTime = currentdate.getHours() + ":" + currentdate.getMinutes();
   const today = currentdate.toISOString().split("T")[0];
-  console.log(today);
-  console.log(currentTime);
   AppPool.query(
     `
   Select U."FirstName",U."LastName", m."Location",m."Title",S."Name" as Sport, m."MarketPlaceId", m."RequesterId", m."Description", m."NumberOfPlayers",m."StartDate",m."StartTime", m."EndDate",m."EndTime",m."Acceptedids",m."InviteesIds",array_length(string_to_array("Acceptedids", ','), 1) as acceptedcount, (m."NumberOfPlayers"-array_length(string_to_array("Acceptedids", ','), 1)) as remaining_count,
@@ -195,7 +191,6 @@ WHERE m."InviteesIds"='{}'
         const getActiveStatus = result.rows.filter((x) => x.case === "Active");
         res.send(getActiveStatus);
       } else {
-        console.log(err.message);
       }
     }
   );
@@ -209,8 +204,6 @@ app.get("/GetAcceptedAvailableEventsById/:id", (req, res) => {
   const currentdate = new Date();
   let currentTime = currentdate.getHours() + ":" + currentdate.getMinutes();
   const today = currentdate.toISOString().split("T")[0];
-  console.log(today);
-  console.log(currentTime);
   AppPool.query(
     `
   Select U."FirstName",U."LastName", m."Location",m."Title",S."Name" as Sport, m."MarketPlaceId", m."RequesterId", m."Description", m."NumberOfPlayers",m."StartDate",m."StartTime", m."EndDate",m."EndTime",m."Acceptedids",m."InviteesIds",array_length(string_to_array("Acceptedids", ','), 1) as acceptedcount, (m."NumberOfPlayers"-array_length(string_to_array("Acceptedids", ','), 1)) as remaining_count,
@@ -257,7 +250,7 @@ AND m."Acceptedids" LIKE $3
         const getActiveStatus = result.rows.filter((x) => x.case === "Active");
         res.send(getActiveStatus);
       } else {
-        console.log(err.message);
+        res.send(err.message)
       }
     }
   );
@@ -290,7 +283,6 @@ app.get('/GetEventById/:id',(req,res)=>{
 
     }
     else{
-      console.log(err)
       res.sendStatus(500)
 
     }
@@ -346,7 +338,6 @@ app.delete('/Delete/:id',(req,res)=>{
 app.get('/NotifyUsers/:id', async (req, res) => {
   const { id } = req.params;
 
-  //console.log("id", id);
   const marketDetails = await Promise.resolve(
     AppPool.query('select "Acceptedids", "Location", "StartDate","EndDate", "StartTime", "EndTime", "Title" from meets."MarketPlace" where "MarketPlaceId"=$1', [id]), function (response) {
       return response
